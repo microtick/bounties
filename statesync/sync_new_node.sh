@@ -16,13 +16,13 @@ if [ "$TRUST_HASH" == "null" ]; then
   exit 1
 fi
 NODE1_ID=$(curl -s "http://localhost:26657/status" | jq -r .result.node_info.id)
-
+NODE1_IP=$(hostname -I | cut -f1 -d' ')
 
 sed -i.bak -E "s|^(enable[[:space:]]+=[[:space:]]+).*$|\1true| ; \
 s|^(rpc_servers[[:space:]]+=[[:space:]]+).*$|\1\"http://localhost:26657,http://localhost:26557\"| ; \
 s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
 s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
-s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@127.0.0.1:26656\"|" ./data/gaiad-sync/config/config.toml
+s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:26656\"|" ./data/gaiad-sync/config/config.toml
 
 gaiad unsafe-reset-all --home ./data/gaiad-sync
 rm -f ./data/gaiad-sync/config/addrbook.json
