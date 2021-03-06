@@ -90,13 +90,13 @@ cp $HOME_NODE1/config/genesis.json $HOME_NODE2/config/genesis.json
 cp $HOME_NODE1/config/genesis.json $HOME_SYNC/config/genesis.json
 
 ## zoom zoom
-sed -i 's/timeout_propose = "3s"/timeout_propose = "250ms"/g' $HOME_NODE1/config/config.toml
-sed -i 's/timeout_commit = "5s"/timeout_commit = "500ms"/g' $HOME_NODE1/config/config.toml
+sed -i 's/timeout_propose = "3s"/timeout_propose = "500ms"/g' $HOME_NODE1/config/config.toml
+sed -i 's/timeout_commit = "5s"/timeout_commit = "1s"/g' $HOME_NODE1/config/config.toml
 sed -i 's/timeout_precommit = "1s"/timeout_precommit = "250ms"/g' $HOME_NODE1/config/config.toml
 sed -i 's/timeout_prevote = "1s"/timeout_prevote = "250ms"/g' $HOME_NODE1/config/config.toml
 
-sed -i 's/timeout_propose = "3s"/timeout_propose = "250ms"/g' $HOME_NODE2/config/config.toml
-sed -i 's/timeout_commit = "5s"/timeout_commit = "500ms"/g' $HOME_NODE2/config/config.toml
+sed -i 's/timeout_propose = "3s"/timeout_propose = "500ms"/g' $HOME_NODE2/config/config.toml
+sed -i 's/timeout_commit = "5s"/timeout_commit = "1s"/g' $HOME_NODE2/config/config.toml
 sed -i 's/timeout_precommit = "1s"/timeout_precommit = "250ms"/g' $HOME_NODE2/config/config.toml
 sed -i 's/timeout_prevote = "1s"/timeout_prevote = "250ms"/g' $HOME_NODE2/config/config.toml
 
