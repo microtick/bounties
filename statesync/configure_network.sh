@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 EXPECTED_VERSION=4.0.2
 
@@ -49,8 +49,8 @@ pkill gaiad
 # Delete old data
 rm -rf $HOME
 
-redirect gaiad --home $HOME_NODE1 init node1 
-redirect gaiad --home $HOME_NODE2 init node2 
+redirect gaiad --home $HOME_NODE1 init node1
+redirect gaiad --home $HOME_NODE2 init node2
 redirect gaiad --home $HOME_SYNC init syncnode
 
 # Add validator keys and bank
@@ -89,20 +89,38 @@ redirect gaiad --home $HOME_NODE1 collect-gentxs
 cp $HOME_NODE1/config/genesis.json $HOME_NODE2/config/genesis.json
 cp $HOME_NODE1/config/genesis.json $HOME_SYNC/config/genesis.json
 
+## zoom zoom
+sed -i 's/timeout_propose = "3s"/timeout_propose = "250ms"/g' $HOME_NODE1/config/config.toml
+sed -i 's/timeout_commit = "5s"/timeout_commit = "500ms"/g' $HOME_NODE1/config/config.toml
+sed -i 's/timeout_precommit = "1s"/timeout_precommit = "250ms"/g' $HOME_NODE1/config/config.toml
+sed -i 's/timeout_prevote = "1s"/timeout_prevote = "250ms"/g' $HOME_NODE1/config/config.toml
+
+sed -i 's/timeout_propose = "3s"/timeout_propose = "250ms"/g' $HOME_NODE2/config/config.toml
+sed -i 's/timeout_commit = "5s"/timeout_commit = "500ms"/g' $HOME_NODE2/config/config.toml
+sed -i 's/timeout_precommit = "1s"/timeout_precommit = "250ms"/g' $HOME_NODE2/config/config.toml
+sed -i 's/timeout_prevote = "1s"/timeout_prevote = "250ms"/g' $HOME_NODE2/config/config.toml
+
+# Edit the ports for node1
+sed -i 's#addr_book_strict = true#addr_book_strict = false#g' $HOME_NODE1/config/config.toml
+sed -i 's#"tcp://127.0.0.1:26657"#"tcp://0.0.0.0:26657"#g' $HOME_NODE1/config/config.toml
+sed -i 's#"tcp://0.0.0.0:26656"#"tcp://0.0.0.0:26656"#g' $HOME_NODE1/config/config.toml
+
 # Edit the ports for node 2
-sed -i 's#"tcp://127.0.0.1:26657"#"tcp://127.0.0.1:26557"#g' $HOME_NODE2/config/config.toml
-sed -i 's#"tcp://0.0.0.0:26656"#"tcp://127.0.0.1:26556"#g' $HOME_NODE2/config/config.toml
+sed -i 's#addr_book_strict = true#addr_book_strict = false#g' $HOME_NODE2/config/config.toml
+sed -i 's#"tcp://127.0.0.1:26657"#"tcp://0.0.0.0:26557"#g' $HOME_NODE2/config/config.toml
+sed -i 's#"tcp://0.0.0.0:26656"#"tcp://0.0.0.0:26556"#g' $HOME_NODE2/config/config.toml
 sed -i 's#"localhost:6060"#"localhost:6061"#g' $HOME_NODE2/config/config.toml
-sed -i 's/timeout_commit = "5s"/timeout_commit = "1s"/g' $HOME_NODE2/config/config.toml
-sed -i 's/timeout_propose = "3s"/timeout_propose = "1s"/g' $HOME_NODE2/config/config.toml
 sed -i 's/address = "0.0.0.0:9090"/address = "0.0.0.0:9091"/g' $HOME_NODE2/config/app.toml
 
+# enable snapshot interval
+sed -i 's/snapshot-interval = 0/snapshot-interval = 100/g' $HOME_NODE2/config/app.toml
+sed -i 's/snapshot-interval = 0/snapshot-interval = 100/g' $HOME_NODE1/config/app.toml
+
 # Edit the ports for sync node
+sed -i 's#addr_book_strict = true#addr_book_strict = false#g' $HOME_SYNC/config/config.toml
 sed -i 's#"tcp://127.0.0.1:26657"#"tcp://127.0.0.1:26457"#g' $HOME_SYNC/config/config.toml
 sed -i 's#"tcp://0.0.0.0:26656"#"tcp://127.0.0.1:26456"#g' $HOME_SYNC/config/config.toml
 sed -i 's#"localhost:6060"#"localhost:6062"#g' $HOME_SYNC/config/config.toml
-sed -i 's/timeout_commit = "5s"/timeout_commit = "1s"/g' $HOME_SYNC/config/config.toml
-sed -i 's/timeout_propose = "3s"/timeout_propose = "1s"/g' $HOME_SYNC/config/config.toml
 sed -i 's/address = "0.0.0.0:9090"/address = "0.0.0.0:9092"/g' $HOME_SYNC/config/app.toml
 
 # Add in seed info to peer nodes
