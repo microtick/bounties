@@ -7,7 +7,7 @@ table below like the example task below:
 | ---- | ----------- | :----: | ---------- |
 | ~example~ | This one's just an example. The line through it to the left indicates it's been completed. | 0 TICK | micro150thisisnotarealtickaddress12345678 |
 | ~[statesync](https://github.com/microtick/bounties/tree/main/statesync)~ | Demonstrate Stargate state sync working in a local chain. | 100 TICK | micro16x03wcp37kx5e8ehckjxvwcgk9j0cqnhpy4xtz |
-| [relayer](https://github.com/microtick/bounties/tree/main/relayer)~ | Demonstrate working IBC Cosmos relayerdeployment. | 250 TICK | |
+| [relayer](https://github.com/microtick/bounties/tree/main/relayer) | Demonstrate working IBC Cosmos relayerdeployment. | 250 TICK | |
 
 Some rules:
 
