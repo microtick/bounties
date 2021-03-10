@@ -1,4 +1,4 @@
-# State Sync
+# Cosmos Relayer
 
 ## Goal
 
