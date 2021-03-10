@@ -21,7 +21,7 @@ some setup.
 
 ## Task
 
-Your task is to create a reliable, maintainable and documented IBC relayer setup for IBC token transfers using the Hermes relayer written in Go. All **code changes** and 
+Your task is to create a reliable, maintainable and documented IBC relayer setup for IBC token transfers using the Hermes relayer written in Rust. All **code changes** and 
 **bug fixes** must be open-source and submitted as PRs to the Informal Systems code repository.  All **task-specific documentation** must be submitted as a
 PR to this repository.
 
