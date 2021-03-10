@@ -2,7 +2,7 @@
 
 ## Goal
 
-The goal of this bounty is to demonstrate a functional and reliable IBC setup for token transfers using the [Cosmos relayer](https://github.com/cosmos/relayer).
+The goal of this bounty is to demonstrate a functional and reliable IBC setup for reliable token transfers using the [Cosmos relayer](https://github.com/cosmos/relayer).
 A second goal is to support the Cosmos ecosystem and provide a reference implementation for other chains wanting to create similar setups.
 
 ## Setup
