@@ -1,0 +1,82 @@
+#!/bin/bash
+
+CONFIG=$PWD/config
+DATA=$PWD/data
+RELAYER=$DATA/relayer
+KEYS=$DATA/keys.json
+
+CHAINID_MTM=$(jq -r .chain_id $CONFIG/microtick.json)
+
+SILENT=1
+redirect() {
+  if [ "$SILENT" -eq 1 ]; then
+    "$@" > /dev/null 2>&1
+  else
+    "$@"
+  fi
+}
+
+if [ "$1" = "seal" ]; then
+  echo "Skipping setup"
+else
+
+  echo "=========================="
+  echo "Configuring new test setup"
+  echo "=========================="
+  echo
+
+  # Display software version for testers
+  MTM_VERSION=`mtm version`
+  echo "MICROTICK VERSION INFO: $MTM_VERSION"
+  echo
+
+  # Ensure user understands what will be deleted
+  if [[ -d $DATA ]] && [[ ! "$1" == "skip" ]]; then
+    echo "$(basename $0) will delete:"
+    echo
+    echo "- $DATA"
+    echo
+    read -p "Do you wish to continue? (y/n): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
+    echo
+  fi
+
+  echo "Stopping running processes"
+  echo "--------------------------"
+
+  redirect killall mtm 
+
+  # Delete data from old runs
+  redirect rm -rf $DATA 
+
+  # Setup Microtick
+  node setup-chain.js $DATA $CONFIG/microtick.json
+  if [ $? -ne 0 ]; then
+    exit -1
+  fi
+
+fi
+
+if [ "$1" = "setup" ]; then
+  exit 0
+fi
+
+# Seal chains
+
+node seal-chain.js $DATA $CONFIG/microtick.json
+if [ $? -ne 0 ]; then
+  exit -1
+fi
+echo
+
+if [ "$1" = "seal" ]; then
+  exit 0
+fi
+
+# Start chains
+
+mtm start --home $DATA/mtm 2>&1 | grep "executed\|committed"
+
