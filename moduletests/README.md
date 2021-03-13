@@ -54,7 +54,7 @@ that can occur for the following transactions and queries:
 | Synthetic | ``` $ mtm query microtick synthetic``` | x/microtick/msg/querySynthetic.go |
 | Trade | ``` $ mtm query microtick trade``` | x/microtick/msg/queryTrade.go |
 
-Note: this task only includes the set of golang tests, not the CLI commands themselves. Those will be in a separate future
+Note: this bounty only includes the set of golang tests, not the CLI commands themselves. CLI tests may be included in a separate future
 bounty.
 
 ## Acceptance Criteria
