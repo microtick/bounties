@@ -1,5 +1,7 @@
 # Golang Module Tests
 
+## Reward 500 TICK
+
 ## Goal
 
 The x/microtick module needs a set of golang tests to test the 8 transactions and 8 queries the Microtick module handles.
