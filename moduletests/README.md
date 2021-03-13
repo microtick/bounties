@@ -65,11 +65,18 @@ bounty.
 
 - Coverage:
 
-  - For each transaction or query, the tests should cover:
-     - the primary flow (where the command or query is successful, has enough funds, is not rejected due to out-of-range parameters, etc)
-     - the main alternate flows:
-       - insufficient funds
-       - code paths that return non-nil errors
-     - embedded alternate flows:
-       - code paths that return non-nil errors due to an error condition in the x/microtick/keeper logi
-  - If there are missing cases, those should be added. In the case of multiple PRs to claim this bounty, the test package with the most complete coverage will prevail.
+For each transaction or query, the tests should cover:
+
+ - *primary flow* (where the command or query is successful, has enough funds, is not rejected due to out-of-range parameters, etc)
+ - *main alternate flows*
+   - insufficient funds
+   - code paths in the transaction or query function that return non-nil errors
+ - *embedded alternate flows*
+   - code paths that return non-nil errors due to an error condition in the x/microtick/keeper logic
+
+If there are cases other than those specified they are *optional* to claim the bounty. In the case of multiple PRs to claim this bounty, the test package with the most complete coverage will prevail.
+
+There are some hidden complexities for commissions and TICK rewards due to the adjustment factor described [at the bottom of this document](https://microtick.com/alpha/docs/stargate-changes). 
+These are out of scope for this bounty. It is enough to test:
+  - the commission paid by a transaction signer is never less than the minimum commission.
+  - the TICK reward paid to a transaction signer is never greater than the maximum TICK reward.
