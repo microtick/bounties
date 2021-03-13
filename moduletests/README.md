@@ -1,4 +1,4 @@
-# State Sync
+# Golang Module Tests
 
 ## Goal
 
@@ -20,9 +20,10 @@ $ cp mtm <somewhere in your path>
 
 The tools **jq** and **node.js** must be installed as well.
 
-Once the executable is in your path, run a local testnet with:
+Once the executable is in your path, run a local testnet in this directory with:
 
 ```
+$ npm install
 $ ./run
 ```
 
@@ -64,3 +65,11 @@ bounty.
 
 - Coverage:
 
+  - For each transaction or query, the tests should cover:
+     - the primary flow (where the command or query is successful, has enough funds, is not rejected due to out-of-range parameters, etc)
+     - the main alternate flows:
+       - insufficient funds
+       - code paths that return non-nil errors
+     - embedded alternate flows:
+       - code paths that return non-nil errors due to an error condition in the x/microtick/keeper logi
+  - If there are missing cases, those should be added. In the case of multiple PRs to claim this bounty, the test package with the most complete coverage will prevail.
