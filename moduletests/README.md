@@ -61,7 +61,7 @@ bounty.
 
 - Must use the latest version of x/microtick on the 'stargate' branch of https://github.com/microtick/mtzone.
 
-- Tests should be able to be run using "make test" from the root directory.
+- Tests should be able to be run using "make test" from the root 'mtzone' directory.
 
 - Coverage:
 
@@ -72,12 +72,12 @@ For each transaction or query, the tests should cover:
    - insufficient funds
    - code paths in the transaction or query function that return non-nil errors
  - **embedded alternate flows**
-   - code paths that return non-nil errors due to an error condition in the x/microtick/keeper logic
+   - code paths that return non-nil errors due to any error condition originating from code in the x/microtick/keeper directory.
 
-If there are cases other than those specified above, _they are *optional* to claim the bounty_. Note that in the case of multiple simultaneous
+If there are cases other than those specified above, _they are **optional** to claim the bounty_. Note that in the case of multiple simultaneous
 PRs to claim this bounty, the test package with the most complete coverage will be used as a selection criteria.
 
 There are some hidden complexities for commissions and TICK rewards due to the adjustment factor described [at the bottom of this document](https://microtick.com/alpha/docs/stargate-changes). 
-_These complexities are out of scope for this bounty_. It is enough to test:
+_These complexities are **out of scope** for this bounty_. It is enough to test:
   - the commission paid by a transaction signer is never less than the minimum commission.
   - the TICK reward paid to a transaction signer is never greater than the maximum TICK reward.
