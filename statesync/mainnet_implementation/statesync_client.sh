@@ -28,12 +28,12 @@ then
   rm -rf $HOME/./microtick/config/genesis.json #deletes the default created genesis
   curl -s $GENESIS > $HOME/.microtick/config/genesis.json
   
-  NODE1_IP="178.128.247.173"
+  NODE1_IP="95.217.109.223"
   RPC1="http://$NODE1_IP"
   P2P_PORT1=26656
   RPC_PORT1=26657
 
-  NODE2_IP="159.65.198.245"
+  NODE2_IP="104.237.158.143"
   RPC2="http://$NODE2_IP"
   RPC_PORT2=26657
   P2P_PORT2=26656
@@ -71,12 +71,12 @@ then
   s|^(trust_height[[:space:]]+=[[:space:]]+).*$|\1$BLOCK_HEIGHT| ; \
   s|^(trust_hash[[:space:]]+=[[:space:]]+).*$|\1\"$TRUST_HASH\"| ; \
   s|^(persistent_peers[[:space:]]+=[[:space:]]+).*$|\1\"${NODE1_ID}@${NODE1_IP}:${P2P_PORT1},${NODE2_ID}@${NODE2_IP}:${P2P_PORT2}\"| ; \
-  s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"d6aa4c9f3ccecb0cc52109a95962b4618d69dd3f@seed1.bitcanna.io:26656,23671067d0fd40aec523290585c7d8e91034a771@seed2.bitcanna.io:16656\"|" $HOME/.microtick/config/config.toml
+  s|^(seeds[[:space:]]+=[[:space:]]+).*$|\1\"e8466c961788f68803d873c28b6a0f843b36ba3e@45.79.207.112:26656,f1b27c43f32b68710de06d8e0fb13e7c9cc21ed2@168.119.231.242:26656,885cc6b8bcc36d9fd0489f4bfa2d845c9b60f354@5.189.132.164:26656\"|" $HOME/.microtick/config/config.toml
 
  
   sed -E -i 's/minimum-gas-prices = \".*\"/minimum-gas-prices = \"0.025utick\"/' $HOME/.microtick/config/app.toml
 
-  ./bcnad unsafe-reset-all
-  ./bcnad start
+  ./mtm unsafe-reset-all
+  ./mtm start
    echo If your node is synced considerate to create a service file. 
 fi
